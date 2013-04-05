@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Input Machinator</title>
+    <link rel="stylesheet" href="input-machinator.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../jquery.inputMachinator.js"></script>
+</head>
+<body>
+    <h1>Welcome to input-machinator</h1>
+    <p>
+        Below is an example usage of the inputMachinator plugin.
+        <br />
+        You can use it like this:
+        <br />
+        <span style="font-family: Monospace;">$('selector').inputMachinator();</span>
+    </p>
+    <div id="machinator-example">
+        <div>
+            <h2>Check boxes</h2>
+            <p>
+                <input type="checkbox" id="checkbox1" value="c1" />
+                <label for="checkbox1">First check box</label>
+            </p>
+            <p>
+                <input type="checkbox" id="checkbox2" value="c2" />
+                <label for="checkbox2">Second check box</label>
+            </p>
+            <p>
+                <input type="checkbox" id="checkbox3" value="c3" disabled="disabled" />
+                <label for="checkbox3">Disabled check box</label>
+            </p>
+        </div>
+        <div>
+            <h2>Radio group 1</h2>
+            <p>
+                <input type="radio" id="radiogroup1-button1" name="radiogroup1" value="g1-r1" />
+                <label for="radiogroup1-button1">First check box</label>
+                <br />
+
+                <input type="radio" id="radiogroup1-button2" name="radiogroup1" value="g1-r2" disabled="disabled" />
+                <label for="radiogroup1-button2">Second check box</label>
+                <br />
+
+                <input type="radio" id="radiogroup1-button3" name="radiogroup1" value="g1-r3" />
+                <label for="radiogroup1-button3">Third check box</label>
+            </p>
+            <h2>Radio group 2</h2>
+            <p>
+                <input type="radio" id="radiogroup2-button1" name="radiogroup2" value="g2-r1" />
+                <label for="radiogroup2-button1">First check box</label>
+                <br />
+
+                <input type="radio" id="radiogroup2-button2" name="radiogroup2" value="g2-r2" disabled="disabled" />
+                <label for="radiogroup2-button2">Second check box</label>
+                <br />
+
+                <input type="radio" id="radiogroup2-button3" name="radiogroup2" value="g2-r3" />
+                <label for="radiogroup2-button3">Third check box</label>
+            </p>
+        </div>
+        <div>
+            <h2>Selects</h2>
+            <p>
+                With an initial value<br />
+                <select id="select1">
+                    <option>Option 1</option>
+                    <option selected="selected">Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </p>
+            <p>
+                Without an initial value<br />
+                <select id="select2">
+                    <option>Good</option>
+                    <option>Bad</option>
+                    <option>Ugly</option>
+                </select>
+            </p>
+            <p>
+                Disabled select<br />
+                <select id="select3" disabled="disabled">
+                    <option>Option 1</option>
+                    <option selected="selected">Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#machinator-example").inputMachinator();
+        });
+    </script>
+</body>
+</html>
