@@ -131,7 +131,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             var $ul = null;
 
             // Add a span element (the "fake" dropdown)
-            var $span = $("<span class='machinator-select'></span>");
+            var $span = $("<span></span>");
+            $span.attr('class', $select.attr('data-machinator-class'));
+            $span.addClass('machinator-select');
             $span.insertAfter($select);
             $span.disableSelection();
 
@@ -168,10 +170,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     $span.removeClass("Disabled");
                 }
                 // Find the selected option
-                var $option = $select.children("option[selected]");
+                var $option = $select.children('option[value="' + $select.val() + '"]');
+                if (!$option.length) {
+                    $option = $select.children('option[selected]');
+                }
                 if ($option.length) {
                     // If there is a selected option, the span's HTML content will be the selected option's content
-                    $span.html($option.html());
+                    $span.html($option.attr('data-machinator-html') || $option.html());
                 }
                 else {
                     // Otherwise the span will be empty
@@ -199,7 +204,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     var isSelected = false;
                     if ($option.val() == $select.val())
                         isSelected = true;
-                    ulHtml += '<li class="' + (isSelected ? "selected" : "") + '" data-machinator-val="' + $option.val() + '">' + $option.html() + '</li>';
+
+                    var optionHtml = $option.attr('data-machinator-html') || $option.html();
+                    ulHtml += '<li class="' + (isSelected ? "selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
                 });
                 ulHtml += '</ul>';
 

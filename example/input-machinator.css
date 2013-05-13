@@ -107,7 +107,7 @@ label {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     text-align: left;
-    height: 30px;
+    min-height: 30px;
 }
 .machinator-select.Disabled {
 	background: #dedede url(images/select_disabled.png) no-repeat right -112px;
@@ -140,6 +140,15 @@ label {
 .machinator-select-dropdown li:hover {
     background-color: #9fce00;
     color: #fff;
+}
+
+.machinator-select-dropdown li img, .machinator-select img {
+    margin-right: 10px;
+    vertical-align: middle;
+    height: 30px;
+}
+.machinator-select.customhtml-example {
+    background: #fff url(images/select.png) no-repeat right -103px;
 }
 
 /* #endregion select */

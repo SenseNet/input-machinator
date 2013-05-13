@@ -17,6 +17,41 @@
     </p>
     <div id="machinator-example">
         <div>
+            <h2>Selects</h2>
+            <p>
+                With an initial value<br />
+                <select id="select1">
+                    <option>Option 1</option>
+                    <option selected="selected">Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </p>
+            <p>
+                Without an initial value<br />
+                <select id="select2">
+                    <option>Good</option>
+                    <option>Bad</option>
+                    <option>Ugly</option>
+                </select>
+            </p>
+            <p>
+                Disabled select<br />
+                <select id="select3" disabled="disabled">
+                    <option>Option 1</option>
+                    <option selected="selected">Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </p>
+            <p>
+                With custom HTML<br />
+                <select id="select4" data-machinator-class="customhtml-example">
+                    <option data-machinator-html="&lt;img src='images/image4.jpg' /&gt; Your option 1">Option 1</option>
+                    <option data-machinator-html="&lt;img src='images/image4.jpg' /&gt; The option 2" selected="selected">Option 2</option>
+                    <option data-machinator-html="&lt;img src='images/image4.jpg' /&gt; Option 3">Option 3</option>
+                </select>
+            </p>
+        </div>
+        <div>
             <h2>Check boxes</h2>
             <p>
                 <input type="checkbox" id="checkbox1" value="c1" />
@@ -57,33 +92,6 @@
 
                 <input type="radio" id="radiogroup2-button3" name="radiogroup2" value="g2-r3" />
                 <label for="radiogroup2-button3">Third check box</label>
-            </p>
-        </div>
-        <div>
-            <h2>Selects</h2>
-            <p>
-                With an initial value<br />
-                <select id="select1">
-                    <option>Option 1</option>
-                    <option selected="selected">Option 2</option>
-                    <option>Option 3</option>
-                </select>
-            </p>
-            <p>
-                Without an initial value<br />
-                <select id="select2">
-                    <option>Good</option>
-                    <option>Bad</option>
-                    <option>Ugly</option>
-                </select>
-            </p>
-            <p>
-                Disabled select<br />
-                <select id="select3" disabled="disabled">
-                    <option>Option 1</option>
-                    <option selected="selected">Option 2</option>
-                    <option>Option 3</option>
-                </select>
             </p>
         </div>
     </div>
