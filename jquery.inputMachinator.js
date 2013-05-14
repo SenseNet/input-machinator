@@ -64,7 +64,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 else {
                     $span.removeClass("Disabled");
                 }
-                if ($input.prop("checked") || $input.is(":checked") || $input.attr("checked")) {
+                if ($input.prop("checked") === true || $input.is(":checked") === true) {
                     $span.removeClass("unchecked").addClass("checked");
                 }
                 else {
@@ -73,7 +73,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             };
             // If the checkbox is checked, uncheck. If it's unchecked, check.
             var toggleCheck = function () {
-                if ($input.prop("checked") || $input.is(":checked") || $input.attr("checked")) {
+                if ($input.prop("checked") === true || $input.is(":checked") === true) {
                     $input.removeAttr("checked");
                     $input.prop("checked", false);
                 }
@@ -114,6 +114,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             if (id) {
                 var $label = $('label[for="' + id + '"]');
                 $label.disableSelection();
+
+                // IE and Firefox treat double click as just one change for the checbox while Chrome treats it as two changes.
+                // Let's just make it behave the same sane way.
+                if (!isRadio && (navigator.userAgent.indexOf("MSIE" >= 0) || navigator.userAgent.indexOf("Mozilla") === 0))
+                    $label.on("dblclick.machinator", clickCallback);
 
                 // Browsers do not change the checked state automatically when the user clicks on a label of a radio
                 // or when the user is in IE<=8
