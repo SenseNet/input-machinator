@@ -109,6 +109,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             // Find the added span
             $span.on('click.machinator', clickCallback);
 
+            // Take care of keyboard navigation
+            $span.attr('tabindex', '0').on('keypress.machinator', function (e) {
+                if (e.which === 13 || e.which === 32 || e.which === 10) {
+                    clickCallback.call(this);
+                }
+            });
+
             // Find the label whose for attribute is set to the id of this input
             var id = $input.attr("id");
             if (id) {
