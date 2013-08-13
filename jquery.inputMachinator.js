@@ -39,10 +39,28 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
     // Performs the input machinator
-    $.fn.inputMachinator = function () {
-        // Find all check boxes and radios in the selected elements
-        this.find("input[type=checkbox],input[type=radio]").each(function () {
+    $.fn.inputMachinator = function (options) {
+        options = $.extend({
+            checkbox: true,
+            radio: true,
+            select: true
+        }, options);
+
+        var $checkboxesAndRadios = $();
+        var $selects = $();
+
+        // Check which controls machinator should run on
+        if (options.checkbox)
+            $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=checkbox]"));
+        if (options.radio)
+            $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=radio]"));
+        if (options.select)
+            $selects = $selects.add(this.find("select"));
+
+        // Run machinator on checkboxes and radios
+        $checkboxesAndRadios.each(function () {
             var $input = $(this);
+            var $label = $();
             var originalClasses = " " + $input.attr("class");
             var isRadio = $input.attr("type") == "radio";
             var $radioGroup = null;
@@ -60,9 +78,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             var changeCallback = function () {
                 if ($input.attr("disabled")) {
                     $span.addClass("Disabled");
+                    $label.addClass("Disabled");
                 }
                 else {
                     $span.removeClass("Disabled");
+                    $label.removeClass("Disabled");
                 }
                 if ($input.prop("checked") === true || $input.is(":checked") === true) {
                     $span.removeClass("unchecked").addClass("checked");
@@ -85,7 +105,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 $input.trigger('change');
             }
             // This is called when someone clicked on the "fake" element
-            var clickCallback = function () {
+            var clickCallback = function (e) {
                 if ($input.attr("disabled"))
                     return;
 
@@ -98,6 +118,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                 // Toggle the checked attribute of this element
                 toggleCheck();
+
+                e.preventDefault();
+                return false;
             }
 
             // Hide the check box
@@ -116,29 +139,50 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
             });
 
-            // Find the label whose for attribute is set to the id of this input
+            // Find the label associated with this input
             var id = $input.attr("id");
+            var labelIsParent = false;
+
             if (id) {
-                var $label = $('label[for="' + id + '"]');
+                // Try to find a label whose for attribute is set to the id of the input
+                $label = $('label[for="' + id + '"]');
+                labelIsParent = $label.length ? $label[0].contains($input[0]) : false;
+            }
+            if (!$label.length) {
+                // Handle the case when the input is inside the label
+                $label = $input.closest("label");
+                labelIsParent = $label.length ? true : false;
+            }
+
+            if ($label.length) {
                 $label.disableSelection();
+                $label.addClass(isRadio ? "machinator-radio-label" : "machinator-checkbox-label");
+
+                // If the label is parent of the checkbox, the label's click event will run,
+                // no need for the click event of the span.
+                if (labelIsParent) {
+                    $span.off('click.machinator');
+                }
 
                 // IE and Firefox treat double click as just one change for the checbox while Chrome treats it as two changes.
                 // Let's just make it behave the same sane way.
-                if (!isRadio && (navigator.userAgent.indexOf("MSIE" >= 0) || navigator.userAgent.indexOf("Mozilla") === 0))
+                if (!isRadio && (navigator.userAgent.indexOf("MSIE" >= 0) || navigator.userAgent.indexOf("Mozilla") === 0)) {
                     $label.on("dblclick.machinator", clickCallback);
+                }
 
                 // Browsers do not change the checked state automatically when the user clicks on a label of a radio
                 // or when the user is in IE<=8
-                if (isRadio || navigator.userAgent.indexOf("MSIE 8.0") >= 0)
+                if (isRadio || navigator.userAgent.indexOf("MSIE 8.0") >= 0) {
                     $label.on('click.machinator', clickCallback);
+                }
             }
 
             // Trigger change so that the initial value is set up correctly
             $input.trigger('change');
         });
 
-        // Find all dropdowns in the selected elements
-        this.find("select").each(function () {
+        // Run machinator on selects
+        $selects.each(function () {
             var $select = $(this);
             var $ul = null;
 

@@ -56,9 +56,13 @@ label {
 	display: inline-block;
 	width: 21px;
     height: 21px;
+    cursor: pointer;
 }
 .machinator-checkbox.checked {
 	background: transparent url(images/checkbox.png) bottom left no-repeat;
+}
+.machinator-checkbox.Disabled {
+    cursor: default;
 }
 .machinator-checkbox.Disabled,
 .machinator-checkbox.unchecked.Disabled {
@@ -66,6 +70,12 @@ label {
 }
 .machinator-checkbox.checked.Disabled {
     background: transparent url(images/checkbox.png) bottom right no-repeat;
+}
+.machinator-checkbox-label {
+    cursor: pointer;
+}
+.machinator-checkbox-label.Disabled {
+    cursor: default;
 }
 
 /* #endregion checkbox */
@@ -78,9 +88,13 @@ label {
 	width: 16px;
     height: 16px;
     background: url(images/radio.png) top left no-repeat;
+    cursor: pointer;
 }
 .machinator-radio.checked {
     background: url(images/radio.png) bottom left no-repeat;
+}
+.machinator-radio.Disabled {
+    cursor: default;
 }
 .machinator-radio.Disabled,
 .machinator-radio.unchecked.Disabled {
@@ -88,6 +102,12 @@ label {
 }
 .machinator-radio.checked.Disabled {
     background: transparent url(images/radio.png) bottom right no-repeat;
+}
+.machinator-radio-label {
+    cursor: pointer;
+}
+.machinator-radio-label.Disabled {
+    cursor: default;
 }
 
 /* #endregion radio */
@@ -113,6 +133,7 @@ label {
 	background: #dedede url(images/select_disabled.png) no-repeat right -112px;
 	border: 1px solid #c0c0c0;
 	color: #7c7c7c;
+	cursor: default;
 }
 .machinator-select-dropdown {
     background: #fff;
