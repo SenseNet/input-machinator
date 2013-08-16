@@ -134,6 +134,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Take care of keyboard navigation
             $span.attr('tabindex', '0').on('keypress.machinator', function (e) {
+                // NOTE: this will not work in browsers that don't support the tabindex attribute
+
                 if (e.which === 13 || e.which === 32 || e.which === 10) {
                     clickCallback.call(this);
                 }
@@ -240,6 +242,47 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
             });
 
+            var setOption = function ($selectedOption, $options) {
+                var $options = $options || $select.children("option");
+
+                // Remove the selected attribute from all the options
+                $options.removeAttr("selected");
+                // Add the selected attribute to that option
+                $selectedOption.attr("selected", "selected");
+                // Set val of the select
+                $select.val($selectedOption.val());
+                // Make the span update itself
+                $select.trigger('change');
+            };
+
+            // Take care of keyboard navigation
+            $span.attr('tabindex', '0').on('keypress.machinator', function (e) {
+                // NOTE: this will not work in browsers that don't support the tabindex attribute
+
+                if (e.keyCode === 37 || e.keyCode === 38) {
+                    var $selected = $select.find("option[selected]");
+                    var $prev = $selected.prev();
+
+                    if ($prev.length) {
+                        setOption($prev);
+                    }
+
+                    e.preventDefault();
+                    return false;
+                }
+                else if (e.keyCode === 39 || e.keyCode === 40) {
+                    var $selected = $select.find("option[selected]");
+                    var $next = $selected.next();
+
+                    if ($next.length) {
+                        setOption($next);
+                    }
+
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
             // When the user clicks on the fake select
             $span.on("click.machinator", function () {
                 // If the dropdown is already open
@@ -328,18 +371,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     });
 
                     // Make that the selected option
-                    $select.val($selectedOption.val());
-                    // Remove the selected attribute from all the other options
-                    $options.each(function () {
-                        var $option = $(this);
-                        if ($option.val() != $li.attr("data-machinator-val")) {
-                            $option.removeAttr("selected");
-                        }
-                    });
-                    // Add the selected attribute to that option
-                    $selectedOption.attr("selected", "selected");
-                    // Make the span update itself
-                    $select.trigger('change');
+                    setOption($selectedOption);
 
                     // Hide the dropdown
                     $ul.off("click.machinator");
