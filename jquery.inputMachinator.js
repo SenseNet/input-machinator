@@ -212,7 +212,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     $ul.animate({
                         'height': 0
                     }, {
-                        duration: 190,
+                        duration: comboBoxAnimationDuration,
                         complete: function () {
                             $old_ul.remove();
                         }
