@@ -46,6 +46,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             select: true
         }, options);
 
+		var comboBoxAnimationDuration = options.comboBoxAnimationDuration || 190;
         var $checkboxesAndRadios = $();
         var $selects = $();
 
@@ -352,7 +353,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 $ul.animate({
                     'height': oldH
                 }, {
-                    duration: 190
+                    duration: comboBoxAnimationDuration
                 });
 
                 // When the user clicks on anywhere else
