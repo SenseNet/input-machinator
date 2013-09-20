@@ -232,11 +232,20 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     $span.removeClass("Disabled");
                 }
                 // Find the selected option
-                var $option = $select.find('option[value="' + $select.val() + '"]');
+				var val = $select.val();
+				// First attempt: find selected option by selected attribute
+                var $option = $select.find('option[selected]');
                 if (!$option.length) {
-                    $option = $select.find('option[selected]');
+					// Fallback: find selected option by value
+                    $option = $select.find('option[value="' + val + '"]');
                 }
+				if (!$option.length) {
+					// Fallback: find selected option by text (in case the value attribute is not set)
+					$option = $select.find('option').filter(function() { return $(this).text() === val; });
+				}
                 if ($option.length) {
+					// Set the option to an acceptable initial state
+					setOption($option, null, true);
                     // If there is a selected option, the span's HTML content will be the selected option's content
                     $span.html($option.attr('data-machinator-html') || $option.html());
                 }
@@ -246,7 +255,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
             });
 
-            var setOption = function ($selectedOption, $options) {
+            var setOption = function ($selectedOption, $options, dontTriggerChange) {
                 var $options = $options || $select.find("option");
 
                 // Remove the selected attribute from all the options
@@ -256,7 +265,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Set val of the select
                 $select.val($selectedOption.val());
                 // Make the span update itself
-                $select.trigger('change');
+				if (!dontTriggerChange)
+					$select.trigger('change');
             };
 
             // Take care of keyboard navigation
@@ -266,35 +276,81 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
 
                 if (!$select.attr("disabled")) {
+					var $selected = $select.find("option[selected]");
+
+					// If nothing is selected, select first option
+					if (!$selected.length) {
+						setOption($($select.find("option:first-child")[0]));
+					}
                     // Up / left
-                    if (e.keyCode === 37 || e.keyCode === 38) {
-                        var $selected = $select.find("option[selected]");
-
-                        if (!$selected.length) {
-                            setOption($select.find("option:first-child"));
-                        }
-                        else {
-                            var $prev = $selected.prev();
-
-                            if ($prev.length) {
-                                setOption($prev);
-                            }
-                        }
+					else if (e.keyCode === 37 || e.keyCode === 38) {
+						var $parent = $selected.parent();
+						for (var $next = $selected.prev(); true; $next = $next.prev()) {
+							// If next element exists
+							if ($next.length) {
+								// If next element is an option, just set it
+								if ($next.is("option")) {
+									if ($next.attr("disabled") || ($next.parent().attr("disabled")))
+										continue;
+									
+									setOption($next);
+									break;
+								}
+								else if ($next.is("optgroup")) {
+									if ($next.attr("disabled"))
+										continue;
+									
+									// Find first option in optgroup
+									var $opt = $next.find(">:last-child");
+									if ($opt.length) {
+										setOption($opt);
+										break;
+									}
+								}
+							}
+							// Otherwise find next optgroup
+							else if (($parent = $selected.parent()).is("optgroup")) {
+								$next = $parent;
+							}
+							else {
+								break;
+							}
+						}
                     }
                     // Down / right
                     else if (e.keyCode === 39 || e.keyCode === 40) {
-                        var $selected = $select.find("option[selected]");
-
-                        if (!$selected.length) {
-                            setOption($select.find("option:first-child"));
-                        }
-                        else {
-                            var $next = $selected.next();
-
-                            if ($next.length) {
-                                setOption($next);
-                            }
-                        }
+						var $parent = $selected.parent();
+						for (var $next = $selected.next(); true; $next = $next.next()) {
+							// If next element exists
+							if ($next.length) {
+								// If next element is an option, just set it
+								if ($next.is("option")) {
+									if ($next.attr("disabled") || ($next.parent().attr("disabled")))
+										continue;
+									
+									setOption($next);
+									break;
+								}
+								else if ($next.is("optgroup")) {
+									if ($next.attr("disabled"))
+										continue;
+									
+									// Find first option in optgroup
+									var $opt = $next.find(">:first-child");
+									if ($opt.length) {
+										setOption($opt);
+										break;
+									}
+								}
+							}
+							// Otherwise find next optgroup
+							else if (($parent = $selected.parent()).is("optgroup")) {
+								$next = $parent;
+							}
+							else {
+								break;
+							}
+						}
                     }
                 }
 
