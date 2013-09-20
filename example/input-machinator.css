@@ -142,7 +142,6 @@ label {
     width: 300px;
     margin: 0;
     padding: 0;
-    cursor: pointer;
     z-index: 300;
     max-height: 250px !important;
     overflow-y: auto;
@@ -153,6 +152,7 @@ label {
     color: #333;
     text-align: left;
     font-size: 12px;
+    cursor: pointer;
     margin: 0;
 }
 .machinator-select-dropdown li.selected {
@@ -162,11 +162,31 @@ label {
     background-color: #9fce00;
     color: #fff;
 }
+.machinator-select-dropdown li.Disabled {
+	cursor: default;
+	background: transparent;
+	color: #000;
+}
 
 .machinator-select-dropdown li img, .machinator-select img {
     margin-right: 10px;
     vertical-align: middle;
     height: 30px;
+}
+.machinator-select-dropdown .machinator-optgroup {
+	cursor: default;
+}
+.machinator-select-dropdown  .machinator-optgroup-options {
+	list-style: none;
+	margin: 0;
+	padding: 5px 0 5px 10px;
+}
+.machinator-select-dropdown  .machinator-optgroup:hover {
+	background-color: #65a7d2;
+	color: #000;
+}
+.machinator-select-dropdown  .machinator-optgroup.Disabled {
+	background-color: #ddd;
 }
 .machinator-select.customhtml-example {
     background: #fff url(images/select.png) no-repeat right -103px;

@@ -232,9 +232,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     $span.removeClass("Disabled");
                 }
                 // Find the selected option
-                var $option = $select.children('option[value="' + $select.val() + '"]');
+                var $option = $select.find('option[value="' + $select.val() + '"]');
                 if (!$option.length) {
-                    $option = $select.children('option[selected]');
+                    $option = $select.find('option[selected]');
                 }
                 if ($option.length) {
                     // If there is a selected option, the span's HTML content will be the selected option's content
@@ -247,7 +247,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             });
 
             var setOption = function ($selectedOption, $options) {
-                var $options = $options || $select.children("option");
+                var $options = $options || $select.find("option");
 
                 // Remove the selected attribute from all the options
                 $options.removeAttr("selected");
@@ -313,19 +313,43 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                 if ($select.attr("disabled"))
                     return;
-
+				
                 // Create HTML for the ul (options)
+				var $options = $();
                 var ulHtml = "<ul class='machinator-select-dropdown'>";
-                var $options = $select.children("option");
-                $options.each(function () {
-                    var $option = $(this);
+				var parseOption = function ($option, disabled) {
                     var isSelected = false;
+					$options = $options.add($option);
+					disabled = disabled ? true : (typeof($option.attr("disabled")) !== "undefined");
                     if ($option.val() == $select.val())
                         isSelected = true;
 
                     var optionHtml = $option.attr('data-machinator-html') || $option.html();
-                    ulHtml += '<li class="' + (isSelected ? "selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
-                });
+                    ulHtml += '<li class="machinator-option' + (disabled ? " Disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
+                };
+                var $optionsAndOptGroups = $select.children("option, optgroup");
+                $optionsAndOptGroups.each(function() {
+					var $this = $(this);
+					if ($this.is("option")) {
+						parseOption($this);
+					}
+					else if ($this.is("optgroup")) {
+						var disabled = typeof($this.attr("disabled")) !== "undefined";
+						ulHtml += "<li class='machinator-optgroup" + (disabled ? " Disabled" : "") + "'>";
+						if ($this.attr("label")) {
+							ulHtml += "<span class='machinator-optgroup-label'>" + $this.attr("label") + "</span>";
+						}
+						var $suboptions = $this.children("option");
+						if ($suboptions.length) {
+							ulHtml += "<ul class='machinator-optgroup-options'>";
+							$suboptions.each(function() {
+								parseOption($(this), disabled);
+							});
+							ulHtml += "</ul>";
+						}
+						ulHtml += "</li>"
+					}
+				});
                 ulHtml += '</ul>';
 
                 // Create the ul element
@@ -361,7 +385,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     if ($ul != null) {
                         var $target = $(event.target);
                         // If the user did really click somewhere else
-                        if (!$target.hasClass("machinator-select-dropdown") && !$target.parent("ul.machinator-select-dropdown").length && $target[0] !== $span[0]) {
+                        if (!$target.hasClass("machinator-select-dropdown") && !$target.closest("ul.machinator-select-dropdown").length && $target[0] !== $span[0]) {
                             // Hide the dropdown
                             hideUl();
                         }
@@ -371,14 +395,14 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // When the user scrolls with the mouse
                 $(window).on('mousewheel.machinator DOMMouseScroll.machinator', function (event) {
                     var $target = $(event.target);
-                    if (!$target.parent("ul.machinator-select-dropdown").length) {
+                    if (!$target.closest("ul.machinator-select-dropdown").length) {
                         // If the user scrolled outside, hide the dropdown
                         hideUl();
                     }
                 });
 
                 // When the user clicks on one of the options
-                $ul.on("click.machinator", "li", function () {
+                $ul.on("click.machinator", "li.machinator-option:not(.Disabled)", function () {
                     // Find the newly selected value
                     var $li = $(this);
                     var $selectedOption = null;
@@ -390,7 +414,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     });
 
                     // Make that the selected option
-                    setOption($selectedOption);
+                    setOption($selectedOption, $options);
 
                     // Hide the dropdown
                     $ul.off("click.machinator");
