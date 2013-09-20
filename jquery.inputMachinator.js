@@ -317,6 +317,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Create HTML for the ul (options)
 				var $options = $();
                 var ulHtml = "<ul class='machinator-select-dropdown'>";
+				// This function will be used to process each <option>
 				var parseOption = function ($option, disabled) {
                     var isSelected = false;
 					$options = $options.add($option);
@@ -327,18 +328,25 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     var optionHtml = $option.attr('data-machinator-html') || $option.html();
                     ulHtml += '<li class="machinator-option' + (disabled ? " Disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
                 };
+				// Iterate through <option> and <optgroup> elements
                 var $optionsAndOptGroups = $select.children("option, optgroup");
                 $optionsAndOptGroups.each(function() {
 					var $this = $(this);
+					// Take care of <option>s
 					if ($this.is("option")) {
 						parseOption($this);
 					}
+					// Take care of <optgroup>s
 					else if ($this.is("optgroup")) {
+						// See if it's disabled
 						var disabled = typeof($this.attr("disabled")) !== "undefined";
+						// Add markup for the whole optgroup
 						ulHtml += "<li class='machinator-optgroup" + (disabled ? " Disabled" : "") + "'>";
+						// Add markup for the label of the optgroup
 						if ($this.attr("label")) {
 							ulHtml += "<span class='machinator-optgroup-label'>" + $this.attr("label") + "</span>";
 						}
+						// Add markup for sub-options
 						var $suboptions = $this.children("option");
 						if ($suboptions.length) {
 							ulHtml += "<ul class='machinator-optgroup-options'>";
