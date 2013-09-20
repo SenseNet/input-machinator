@@ -69,8 +69,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 $radioGroup = $("input[type=radio][name='" + name + "']");
             }
 
-            // Add a span element (the "fake" checkbox)
-            var $span = $("<span class='" + (isRadio ? "machinator-radio" : "machinator-checkbox") + originalClasses + "'></span>");
+            // Add an <a> element (the "fake" checkbox)
+            var $span = $("<a class='" + (isRadio ? "machinator-radio" : "machinator-checkbox") + originalClasses + "'></a>");
             $span.insertAfter($input);
             $span.disableSelection();
 
@@ -119,7 +119,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Toggle the checked attribute of this element
                 toggleCheck();
 
-                e.preventDefault();
+                if (e)
+                    e.preventDefault();
                 return false;
             }
 
@@ -133,11 +134,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             $span.on('click.machinator', clickCallback);
 
             // Take care of keyboard navigation
-            $span.attr('tabindex', '0').on('keypress.machinator', function (e) {
+            $span.attr('tabindex', '0').on('keydown.machinator', function (e) {
                 // NOTE: this will not work in browsers that don't support the tabindex attribute
 
                 if (e.which === 13 || e.which === 32 || e.which === 10) {
                     clickCallback.call(this);
+					e.preventDefault();
+					return false;
                 }
             });
 
@@ -188,8 +191,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             var $select = $(this);
             var $ul = null;
 
-            // Add a span element (the "fake" dropdown)
-            var $span = $("<span></span>");
+            // Add an <a> element (the "fake" dropdown)
+            var $span = $("<a></a>");
             $span.attr('class', $select.attr('data-machinator-class'));
             $span.addClass('machinator-select');
             $span.insertAfter($select);
@@ -256,31 +259,46 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             };
 
             // Take care of keyboard navigation
-            $span.attr('tabindex', '0').on('keypress.machinator', function (e) {
-                // NOTE: this will not work in browsers that don't support the tabindex attribute
-
-                if (e.keyCode === 37 || e.keyCode === 38) {
-                    var $selected = $select.find("option[selected]");
-                    var $prev = $selected.prev();
-
-                    if ($prev.length) {
-                        setOption($prev);
-                    }
-
-                    e.preventDefault();
-                    return false;
+            $span.attr('tabindex', '0').on('keydown.machinator', function (e) {
+                if (e.keyCode !== 37 && e.keyCode !== 38 && e.keyCode !== 39 && e.keyCode !== 40) {
+                    return;
                 }
-                else if (e.keyCode === 39 || e.keyCode === 40) {
-                    var $selected = $select.find("option[selected]");
-                    var $next = $selected.next();
 
-                    if ($next.length) {
-                        setOption($next);
+                if (!$select.attr("disabled")) {
+                    // Up / left
+                    if (e.keyCode === 37 || e.keyCode === 38) {
+                        var $selected = $select.find("option[selected]");
+
+                        if (!$selected.length) {
+                            setOption($select.find("option:first-child"));
+                        }
+                        else {
+                            var $prev = $selected.prev();
+
+                            if ($prev.length) {
+                                setOption($prev);
+                            }
+                        }
                     }
+                    // Down / right
+                    else if (e.keyCode === 39 || e.keyCode === 40) {
+                        var $selected = $select.find("option[selected]");
 
-                    e.preventDefault();
-                    return false;
+                        if (!$selected.length) {
+                            setOption($select.find("option:first-child"));
+                        }
+                        else {
+                            var $next = $selected.next();
+
+                            if ($next.length) {
+                                setOption($next);
+                            }
+                        }
+                    }
                 }
+
+                e.preventDefault();
+                return false;
             });
 
             // When the user clicks on the fake select
@@ -376,6 +394,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     // Hide the dropdown
                     $ul.off("click.machinator");
                     hideUl();
+                    $span.focus();
                 });
             });
 
