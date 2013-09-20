@@ -78,11 +78,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             // When the checkbox changes, this will adjust the span automatically
             var changeCallback = function () {
                 if ($input.attr("disabled")) {
-                    $span.addClass("Disabled");
+                    $span.addClass("Disabled").attr('tabindex', '-1');
                     $label.addClass("Disabled");
                 }
                 else {
-                    $span.removeClass("Disabled");
+                    $span.removeClass("Disabled").attr('tabindex', '0');
                     $label.removeClass("Disabled");
                 }
                 if ($input.prop("checked") === true || $input.is(":checked") === true) {
@@ -226,10 +226,10 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             $select.on("change.machinator", function () {
                 // Add disabled class if necessary
                 if ($select.attr("disabled")) {
-                    $span.addClass("Disabled");
+                    $span.addClass("Disabled").attr('tabindex', '-1');
                 }
                 else {
-                    $span.removeClass("Disabled");
+                    $span.removeClass("Disabled").attr('tabindex', '0');
                 }
                 // Find the selected option
 				var val = $select.val();
