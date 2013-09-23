@@ -309,7 +309,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 								}
 							}
 							// Otherwise find next optgroup
-							else if (($parent = $selected.parent()).is("optgroup")) {
+							else if ($parent.is("optgroup")) {
+								if (!$parent.prev().length)
+									break;
 								$next = $parent;
 							}
 							else {
@@ -344,7 +346,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 								}
 							}
 							// Otherwise find next optgroup
-							else if (($parent = $selected.parent()).is("optgroup")) {
+							else if ($parent.is("optgroup")) {
+								if (!$parent.next().length)
+									break;
 								$next = $parent;
 							}
 							else {
