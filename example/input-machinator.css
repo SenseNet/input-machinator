@@ -32,8 +32,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 body {
-	font-family: Sans-Serif;
-	font-size: 15px;
+    font-family: Sans-Serif;
+    font-size: 15px;
 }
 
 input, label, span {
@@ -52,29 +52,29 @@ label {
 /* #region checkbox */
 
 .machinator-checkbox {
-	background: transparent url(images/checkbox.png) top left no-repeat;
-	display: inline-block;
-	width: 21px;
+    background: transparent url(images/checkbox.png) top left no-repeat;
+    display: inline-block;
+    width: 21px;
     height: 21px;
     cursor: pointer;
 }
 .machinator-checkbox.checked {
-	background: transparent url(images/checkbox.png) bottom left no-repeat;
+    background: transparent url(images/checkbox.png) bottom left no-repeat;
 }
-.machinator-checkbox.Disabled {
+.machinator-checkbox.machinator-disabled {
     cursor: default;
 }
-.machinator-checkbox.Disabled,
-.machinator-checkbox.unchecked.Disabled {
+.machinator-checkbox.machinator-disabled,
+.machinator-checkbox.unchecked.machinator-disabled {
     background: transparent url(images/checkbox.png) top right no-repeat;
 }
-.machinator-checkbox.checked.Disabled {
+.machinator-checkbox.checked.machinator-disabled {
     background: transparent url(images/checkbox.png) bottom right no-repeat;
 }
 .machinator-checkbox-label {
     cursor: pointer;
 }
-.machinator-checkbox-label.Disabled {
+.machinator-checkbox-label.machinator-disabled {
     cursor: default;
 }
 
@@ -83,9 +83,9 @@ label {
 /* #region radio */
 
 .machinator-radio {
-	margin: 0 5px 0 0;
-	display: inline-block;
-	width: 16px;
+    margin: 0 5px 0 0;
+    display: inline-block;
+    width: 16px;
     height: 16px;
     background: url(images/radio.png) top left no-repeat;
     cursor: pointer;
@@ -93,20 +93,20 @@ label {
 .machinator-radio.checked {
     background: url(images/radio.png) bottom left no-repeat;
 }
-.machinator-radio.Disabled {
+.machinator-radio.machinator-disabled {
     cursor: default;
 }
-.machinator-radio.Disabled,
-.machinator-radio.unchecked.Disabled {
+.machinator-radio.machinator-disabled,
+.machinator-radio.unchecked.machinator-disabled {
     background: transparent url(images/radio.png) top right no-repeat;
 }
-.machinator-radio.checked.Disabled {
+.machinator-radio.checked.machinator-disabled {
     background: transparent url(images/radio.png) bottom right no-repeat;
 }
 .machinator-radio-label {
     cursor: pointer;
 }
-.machinator-radio-label.Disabled {
+.machinator-radio-label.machinator-disabled {
     cursor: default;
 }
 
@@ -129,11 +129,11 @@ label {
     text-align: left;
     min-height: 30px;
 }
-.machinator-select.Disabled {
-	background: #dedede url(images/select_disabled.png) no-repeat right -112px;
-	border: 1px solid #c0c0c0;
-	color: #7c7c7c;
-	cursor: default;
+.machinator-select.machinator-disabled {
+    background: #dedede url(images/select_disabled.png) no-repeat right -112px;
+    border: 1px solid #c0c0c0;
+    color: #7c7c7c;
+    cursor: default;
 }
 .machinator-select-dropdown {
     background: #fff;
@@ -162,10 +162,10 @@ label {
     background-color: #9fce00;
     color: #fff;
 }
-.machinator-select-dropdown li.Disabled {
-	cursor: default;
-	background: transparent;
-	color: #000;
+.machinator-select-dropdown li.machinator-disabled {
+    cursor: default;
+    background: transparent;
+    color: #000;
 }
 
 .machinator-select-dropdown li img, .machinator-select img {
@@ -174,19 +174,19 @@ label {
     height: 30px;
 }
 .machinator-select-dropdown .machinator-optgroup {
-	cursor: default;
+    cursor: default;
 }
 .machinator-select-dropdown  .machinator-optgroup-options {
-	list-style: none;
-	margin: 0;
-	padding: 5px 0 5px 10px;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0 5px 10px;
 }
 .machinator-select-dropdown  .machinator-optgroup:hover {
-	background-color: #65a7d2;
-	color: #000;
+    background-color: #65a7d2;
+    color: #000;
 }
-.machinator-select-dropdown  .machinator-optgroup.Disabled {
-	background-color: #ddd;
+.machinator-select-dropdown  .machinator-optgroup.machinator-disabled {
+    background-color: #ddd;
 }
 .machinator-select.customhtml-example {
     background: #fff url(images/select.png) no-repeat right -103px;

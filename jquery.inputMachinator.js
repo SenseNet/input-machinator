@@ -83,12 +83,12 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             // When the checkbox changes, this will adjust the span automatically
             var changeCallback = function () {
                 if ($input.attr("disabled")) {
-                    $span.addClass("Disabled").attr('tabindex', '-1');
-                    $label.addClass("Disabled");
+                    $span.addClass("machinator-disabled").attr('tabindex', '-1');
+                    $label.addClass("machinator-disabled");
                 }
                 else {
-                    $span.removeClass("Disabled").attr('tabindex', '0');
-                    $label.removeClass("Disabled");
+                    $span.removeClass("machinator-disabled").attr('tabindex', '0');
+                    $label.removeClass("machinator-disabled");
                 }
                 if ($input.prop("checked") === true || $input.is(":checked") === true) {
                     $span.removeClass("unchecked").addClass("checked");
@@ -239,10 +239,10 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             $select.on("change.machinator", function () {
                 // Add disabled class if necessary
                 if ($select.attr("disabled")) {
-                    $span.addClass("Disabled").attr('tabindex', '-1');
+                    $span.addClass("machinator-disabled").attr('tabindex', '-1');
                 }
                 else {
-                    $span.removeClass("Disabled").attr('tabindex', '0');
+                    $span.removeClass("machinator-disabled").attr('tabindex', '0');
                 }
                 // Find the selected option
                 var val = $select.val();
@@ -399,7 +399,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         isSelected = true;
 
                     var optionHtml = $option.attr('data-machinator-html') || $option.html();
-                    ulHtml += '<li class="machinator-option' + (disabled ? " Disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
+                    ulHtml += '<li class="machinator-option' + (disabled ? " machinator-disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
                 };
                 // Iterate through <option> and <optgroup> elements
                 var $optionsAndOptGroups = $select.children("option, optgroup");
@@ -414,7 +414,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         // See if it's disabled
                         var disabled = typeof($this.attr("disabled")) !== "undefined";
                         // Add markup for the whole optgroup
-                        ulHtml += "<li class='machinator-optgroup" + (disabled ? " Disabled" : "") + "'>";
+                        ulHtml += "<li class='machinator-optgroup" + (disabled ? " machinator-disabled" : "") + "'>";
                         // Add markup for the label of the optgroup
                         if ($this.attr("label")) {
                             ulHtml += "<span class='machinator-optgroup-label'>" + $this.attr("label") + "</span>";
@@ -483,7 +483,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 });
 
                 // When the user clicks on one of the options
-                $ul.on("click.machinator", "li.machinator-option:not(.Disabled)", function () {
+                $ul.on("click.machinator", "li.machinator-option:not(.machinator-disabled)", function () {
                     // Find the newly selected value
                     var $li = $(this);
                     var $selectedOption = null;

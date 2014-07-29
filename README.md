@@ -29,7 +29,7 @@ After calling the plugin on a set of elements, the site builder only has to crea
 * `span.machinator-radio` - created for radio buttons
 * `span.machinator-select` - created for selects
 * `ul.machinator-select-dropdown` - dropdown for selects, attached to the end of document body
-* the `Disabled` class will be added to the spans for disabled elements
+* the `machinator-disabled` class will be added to the spans for disabled elements
 
 Things to note
 --------------
