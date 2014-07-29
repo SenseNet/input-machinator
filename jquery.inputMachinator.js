@@ -46,7 +46,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             select: true
         }, options);
 
-		var comboBoxAnimationDuration = options.comboBoxAnimationDuration || 190;
+        var comboBoxAnimationDuration = options.comboBoxAnimationDuration || 190;
         var $checkboxesAndRadios = $();
         var $selects = $();
 
@@ -140,8 +140,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                 if (e.which === 13 || e.which === 32 || e.which === 10) {
                     clickCallback.call(this);
-					e.preventDefault();
-					return false;
+                    e.preventDefault();
+                    return false;
                 }
             });
 
@@ -232,20 +232,20 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     $span.removeClass("Disabled").attr('tabindex', '0');
                 }
                 // Find the selected option
-				var val = $select.val();
-				// First attempt: find selected option by selected attribute
+                var val = $select.val();
+                // First attempt: find selected option by selected attribute
                 var $option = $select.find('option[selected]');
                 if (!$option.length) {
-					// Fallback: find selected option by value
+                    // Fallback: find selected option by value
                     $option = $select.find('option[value="' + val + '"]');
                 }
-				if (!$option.length) {
-					// Fallback: find selected option by text (in case the value attribute is not set)
-					$option = $select.find('option').filter(function() { return $(this).text() === val; });
-				}
+                if (!$option.length) {
+                    // Fallback: find selected option by text (in case the value attribute is not set)
+                    $option = $select.find('option').filter(function() { return $(this).text() === val; });
+                }
                 if ($option.length) {
-					// Set the option to an acceptable initial state
-					setOption($option, null, true);
+                    // Set the option to an acceptable initial state
+                    setOption($option, null, true);
                     // If there is a selected option, the span's HTML content will be the selected option's content
                     $span.html($option.attr('data-machinator-html') || $option.html());
                 }
@@ -265,8 +265,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Set val of the select
                 $select.val($selectedOption.val());
                 // Make the span update itself
-				if (!dontTriggerChange)
-					$select.trigger('change');
+                if (!dontTriggerChange)
+                    $select.trigger('change');
             };
 
             // Take care of keyboard navigation
@@ -276,85 +276,85 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
 
                 if (!$select.attr("disabled")) {
-					var $selected = $select.find("option[selected]");
+                    var $selected = $select.find("option[selected]");
 
-					// If nothing is selected, select first option
-					if (!$selected.length) {
-						setOption($($select.find("option:first-child")[0]));
-					}
+                    // If nothing is selected, select first option
+                    if (!$selected.length) {
+                        setOption($($select.find("option:first-child")[0]));
+                    }
                     // Up / left
-					else if (e.keyCode === 37 || e.keyCode === 38) {
-						var $parent = $selected.parent();
-						for (var $next = $selected.prev(); true; $next = $next.prev()) {
-							// If next element exists
-							if ($next.length) {
-								// If next element is an option, just set it
-								if ($next.is("option")) {
-									if ($next.attr("disabled") || ($next.parent().attr("disabled")))
-										continue;
-									
-									setOption($next);
-									break;
-								}
-								else if ($next.is("optgroup")) {
-									if ($next.attr("disabled"))
-										continue;
-									
-									// Find first option in optgroup
-									var $opt = $next.find(">:last-child");
-									if ($opt.length) {
-										setOption($opt);
-										break;
-									}
-								}
-							}
-							// Otherwise find next optgroup
-							else if ($parent.is("optgroup")) {
-								if (!$parent.prev().length)
-									break;
-								$next = $parent;
-							}
-							else {
-								break;
-							}
-						}
+                    else if (e.keyCode === 37 || e.keyCode === 38) {
+                        var $parent = $selected.parent();
+                        for (var $next = $selected.prev(); true; $next = $next.prev()) {
+                            // If next element exists
+                            if ($next.length) {
+                                // If next element is an option, just set it
+                                if ($next.is("option")) {
+                                    if ($next.attr("disabled") || ($next.parent().attr("disabled")))
+                                        continue;
+                                    
+                                    setOption($next);
+                                    break;
+                                }
+                                else if ($next.is("optgroup")) {
+                                    if ($next.attr("disabled"))
+                                        continue;
+                                    
+                                    // Find first option in optgroup
+                                    var $opt = $next.find(">:last-child");
+                                    if ($opt.length) {
+                                        setOption($opt);
+                                        break;
+                                    }
+                                }
+                            }
+                            // Otherwise find next optgroup
+                            else if ($parent.is("optgroup")) {
+                                if (!$parent.prev().length)
+                                    break;
+                                $next = $parent;
+                            }
+                            else {
+                                break;
+                            }
+                        }
                     }
                     // Down / right
                     else if (e.keyCode === 39 || e.keyCode === 40) {
-						var $parent = $selected.parent();
-						for (var $next = $selected.next(); true; $next = $next.next()) {
-							// If next element exists
-							if ($next.length) {
-								// If next element is an option, just set it
-								if ($next.is("option")) {
-									if ($next.attr("disabled") || ($next.parent().attr("disabled")))
-										continue;
-									
-									setOption($next);
-									break;
-								}
-								else if ($next.is("optgroup")) {
-									if ($next.attr("disabled"))
-										continue;
-									
-									// Find first option in optgroup
-									var $opt = $next.find(">:first-child");
-									if ($opt.length) {
-										setOption($opt);
-										break;
-									}
-								}
-							}
-							// Otherwise find next optgroup
-							else if ($parent.is("optgroup")) {
-								if (!$parent.next().length)
-									break;
-								$next = $parent;
-							}
-							else {
-								break;
-							}
-						}
+                        var $parent = $selected.parent();
+                        for (var $next = $selected.next(); true; $next = $next.next()) {
+                            // If next element exists
+                            if ($next.length) {
+                                // If next element is an option, just set it
+                                if ($next.is("option")) {
+                                    if ($next.attr("disabled") || ($next.parent().attr("disabled")))
+                                        continue;
+                                    
+                                    setOption($next);
+                                    break;
+                                }
+                                else if ($next.is("optgroup")) {
+                                    if ($next.attr("disabled"))
+                                        continue;
+                                    
+                                    // Find first option in optgroup
+                                    var $opt = $next.find(">:first-child");
+                                    if ($opt.length) {
+                                        setOption($opt);
+                                        break;
+                                    }
+                                }
+                            }
+                            // Otherwise find next optgroup
+                            else if ($parent.is("optgroup")) {
+                                if (!$parent.next().length)
+                                    break;
+                                $next = $parent;
+                            }
+                            else {
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -373,51 +373,51 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                 if ($select.attr("disabled"))
                     return;
-				
+                
                 // Create HTML for the ul (options)
-				var $options = $();
+                var $options = $();
                 var ulHtml = "<ul class='machinator-select-dropdown'>";
-				// This function will be used to process each <option>
-				var parseOption = function ($option, disabled) {
+                // This function will be used to process each <option>
+                var parseOption = function ($option, disabled) {
                     var isSelected = false;
-					$options = $options.add($option);
-					disabled = disabled ? true : (typeof($option.attr("disabled")) !== "undefined");
+                    $options = $options.add($option);
+                    disabled = disabled ? true : (typeof($option.attr("disabled")) !== "undefined");
                     if ($option.val() == $select.val())
                         isSelected = true;
 
                     var optionHtml = $option.attr('data-machinator-html') || $option.html();
                     ulHtml += '<li class="machinator-option' + (disabled ? " Disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
                 };
-				// Iterate through <option> and <optgroup> elements
+                // Iterate through <option> and <optgroup> elements
                 var $optionsAndOptGroups = $select.children("option, optgroup");
                 $optionsAndOptGroups.each(function() {
-					var $this = $(this);
-					// Take care of <option>s
-					if ($this.is("option")) {
-						parseOption($this);
-					}
-					// Take care of <optgroup>s
-					else if ($this.is("optgroup")) {
-						// See if it's disabled
-						var disabled = typeof($this.attr("disabled")) !== "undefined";
-						// Add markup for the whole optgroup
-						ulHtml += "<li class='machinator-optgroup" + (disabled ? " Disabled" : "") + "'>";
-						// Add markup for the label of the optgroup
-						if ($this.attr("label")) {
-							ulHtml += "<span class='machinator-optgroup-label'>" + $this.attr("label") + "</span>";
-						}
-						// Add markup for sub-options
-						var $suboptions = $this.children("option");
-						if ($suboptions.length) {
-							ulHtml += "<ul class='machinator-optgroup-options'>";
-							$suboptions.each(function() {
-								parseOption($(this), disabled);
-							});
-							ulHtml += "</ul>";
-						}
-						ulHtml += "</li>"
-					}
-				});
+                    var $this = $(this);
+                    // Take care of <option>s
+                    if ($this.is("option")) {
+                        parseOption($this);
+                    }
+                    // Take care of <optgroup>s
+                    else if ($this.is("optgroup")) {
+                        // See if it's disabled
+                        var disabled = typeof($this.attr("disabled")) !== "undefined";
+                        // Add markup for the whole optgroup
+                        ulHtml += "<li class='machinator-optgroup" + (disabled ? " Disabled" : "") + "'>";
+                        // Add markup for the label of the optgroup
+                        if ($this.attr("label")) {
+                            ulHtml += "<span class='machinator-optgroup-label'>" + $this.attr("label") + "</span>";
+                        }
+                        // Add markup for sub-options
+                        var $suboptions = $this.children("option");
+                        if ($suboptions.length) {
+                            ulHtml += "<ul class='machinator-optgroup-options'>";
+                            $suboptions.each(function() {
+                                parseOption($(this), disabled);
+                            });
+                            ulHtml += "</ul>";
+                        }
+                        ulHtml += "</li>"
+                    }
+                });
                 ulHtml += '</ul>';
 
                 // Create the ul element
