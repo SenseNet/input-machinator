@@ -61,6 +61,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         // Run machinator on checkboxes and radios
         $checkboxesAndRadios.each(function () {
             var $input = $(this);
+
+            // Check if it's already done
+            if ($input.data('inputmachinator-done') === true)
+                return;
+
             var $label = $();
             var originalClasses = " " + $input.attr("class");
             var isRadio = $input.attr("type") == "radio";
@@ -104,7 +109,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 }
 
                 $input.trigger('change');
-            }
+            };
             // This is called when someone clicked on the "fake" element
             var clickCallback = function (e) {
                 if ($input.attr("disabled"))
@@ -123,7 +128,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 if (e)
                     e.preventDefault();
                 return false;
-            }
+            };
 
             // Hide the check box
             $input.hide();
@@ -185,11 +190,19 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Trigger change so that the initial value is set up correctly
             $input.trigger('change');
+
+            // Set done
+            $input.data('inputmachinator-done', true);
         });
 
         // Run machinator on selects
         $selects.each(function () {
             var $select = $(this);
+
+            // Check if it's already done
+            if ($select.data('inputmachinator-done') === true)
+                return;
+
             var $ul = null;
 
             // Add an <a> element (the "fake" dropdown)
@@ -493,6 +506,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Trigger change to set the span to its initial state
             $select.trigger('change');
+
+            // Set done
+            $select.data('inputmachinator-done', true);
         });
 
         // For chainability, return the value of this
