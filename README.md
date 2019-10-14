@@ -34,7 +34,7 @@ After calling the plugin on a set of elements, the site builder only has to crea
 Things to note
 --------------
 
-If you change the value of the underlying input element progmatically, you will have to trigger the `change` event on them to update the pretty ones:
+If you change the value of the underlying input element programmatically, you will have to trigger the `change` event on them to update the pretty ones:
 
 ```javascript
 var $sel = $("input[checkbox].yourClass");
