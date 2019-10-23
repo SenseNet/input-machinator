@@ -1,7 +1,7 @@
 ﻿
 /*
 Input Machinator
-jQuery plugin that will make your non-styleable inputs (checkboxes, radio buttons, selects) pretty.
+jQuery plugin that will make your non-styleable widgets (checkboxes, radio buttons, selects) pretty.
 It works by hiding the original inputs and adding certain span elements that will appear to the user,
 while still allowing you to interact with the inputs from javascript as if this plugin didn't exist.
 
