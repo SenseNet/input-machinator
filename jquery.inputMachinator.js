@@ -51,21 +51,32 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         var $selects = $();
 
         // Check which controls machinator should run on
-        if (options.checkbox)
+        if (options.checkbox) {
+            
             $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=checkbox]"));
-        if (options.radio)
+            
+        }
+        if (options.radio) {
+            
             $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=radio]"));
-        if (options.select)
+            
+        }
+        if (options.select) {
+            
             $selects = $selects.add(this.find("select"));
+            
+        }
 
         // Run machinator on checkboxes and radios
         $checkboxesAndRadios.each(function () {
             var $input = $(this);
 
             // Check if it's already done
-            if ($input.data('inputmachinator-done') === true)
+            if ($input.data('inputmachinator-done') === true) {
+                
                 return;
 
+            }
             var $label = $();
             var originalClasses = " " + $input.attr("class");
             var isRadio = $input.attr("type") == "radio";
@@ -112,9 +123,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             };
             // This is called when someone clicked on the "fake" element
             var clickCallback = function (e) {
-                if ($input.attr("disabled"))
+                if ($input.attr("disabled")) {
+                    
                     return;
 
+                }
                 if ($radioGroup != null) {
                     // Uncheck all the radios in the group
                     $radioGroup.removeAttr("checked");
@@ -200,8 +213,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             var $select = $(this);
 
             // Check if it's already done
-            if ($select.data('inputmachinator-done') === true)
+            if ($select.data('inputmachinator-done') === true) {
+                
                 return;
+                
+            }
 
             var $ul = null;
 
