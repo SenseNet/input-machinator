@@ -52,19 +52,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         // Check which controls machinator should run on
         if (options.checkbox) {
-            
             $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=checkbox]"));
-            
         }
         if (options.radio) {
-            
             $checkboxesAndRadios = $checkboxesAndRadios.add(this.find("input[type=radio]"));
-            
         }
         if (options.select) {
-            
             $selects = $selects.add(this.find("select"));
-            
         }
 
         // Run machinator on checkboxes and radios
@@ -73,9 +67,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Check if it's already done
             if ($input.data('inputmachinator-done') === true) {
-                
                 return;
-
             }
             var $label = $();
             var originalClasses = " " + $input.attr("class");
@@ -124,9 +116,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             // This is called when someone clicked on the "fake" element
             var clickCallback = function (e) {
                 if ($input.attr("disabled")) {
-                    
                     return;
-
                 }
                 if ($radioGroup != null) {
                     // Uncheck all the radios in the group
@@ -138,8 +128,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Toggle the checked attribute of this element
                 toggleCheck();
 
-                if (e)
+                if (e){
                     e.preventDefault();
+                }
                 return false;
             };
 
@@ -214,9 +205,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             // Check if it's already done
             if ($select.data('inputmachinator-done') === true) {
-                
                 return;
-                
             }
 
             var $ul = null;
@@ -400,9 +389,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     return;
                 }
 
-                if ($select.attr("disabled"))
+                if ($select.attr("disabled")){
                     return;
-                
+                }
                 // Create HTML for the ul (options)
                 var $options = $();
                 var ulHtml = "<ul class='machinator-select-dropdown'>";
@@ -411,8 +400,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     var isSelected = false;
                     $options = $options.add($option);
                     disabled = disabled ? true : (typeof($option.attr("disabled")) !== "undefined");
-                    if ($option.val() == $select.val())
+                    if ($option.val() == $select.val()){
                         isSelected = true;
+                    }
 
                     var optionHtml = $option.attr('data-machinator-html') || $option.html();
                     ulHtml += '<li class="machinator-option' + (disabled ? " machinator-disabled" : "") + (isSelected ? " selected" : "") + '" data-machinator-val="' + $option.val() + '">' + optionHtml + '</li>';
