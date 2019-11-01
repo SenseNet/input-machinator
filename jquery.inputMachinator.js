@@ -128,7 +128,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // Toggle the checked attribute of this element
                 toggleCheck();
 
-                if (e){
+                if (e) {
                     e.preventDefault();
                 }
                 return false;
